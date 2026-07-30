@@ -17,12 +17,12 @@ public class JobScheduler {
     public JobScheduler() {
 
         this.workerPool = new ThreadPoolExecutor(
-                50,
-                100,
-                60,
-                TimeUnit.SECONDS,
-                new LinkedBlockingQueue<>(10000),
-                new ThreadPoolExecutor.CallerRunsPolicy()
+                50,                          // Core pool size
+                100,                         // Maximum pool size
+                60,                          // Idle thread keep-alive time
+                TimeUnit.SECONDS,            // Keep-alive time unit
+                new LinkedBlockingQueue<>(10000), // Queue can hold 10,000 tasks
+                new ThreadPoolExecutor.CallerRunsPolicy() // If queue is full and max threads reached, calling thread executes the task
         );
 
         dispatcherThread = new Thread(new Dispatcher(), "dispatcher");
